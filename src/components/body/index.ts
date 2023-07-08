@@ -43,7 +43,7 @@ function updateGrossToNet({ minimal }: { minimal: boolean }) {
 const postData = async (gross_salary: Number, region: string, children: Number, babies: Number) => {
   var data = { gross_salary: gross_salary, region, children: children, babies: babies}
   
-  const response = await fetch('http://localhost:8080/netSalary',{
+  const response = await fetch('https://api-calcularsueldoneto.fly.dev/netSalary',{
     method: "POST",
     
     headers: {
