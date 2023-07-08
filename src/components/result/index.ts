@@ -1,6 +1,13 @@
 import { $, $$ } from "../../lib/dom";
 import { formatNumber } from "../../lib/formatNumber";
-import { Result } from "../../lib/grossToNet";
+
+export interface Result {
+  annualNetSalary: number;
+  annualFee: number;
+  annualWithholding: number;
+  monthlyNetSalary: number;
+  monthlyNetSalaryExtra: number;
+}
 
 export function updateResult({
   monthlyNetSalary,

@@ -1,6 +1,5 @@
 import Form, { getFormInputs } from "../form";
 import { updateResult } from "../result";
-import grossToNet from "../../lib/grossToNet";
 
 export default {
   init: ({
@@ -21,25 +20,40 @@ function updateGrossToNet({ minimal }: { minimal: boolean }) {
     disabilityPercentage,
   } = getFormInputs({ minimal });
 
-  const {
-    monthlyNetSalary,
-    annualNetSalary,
-    annualWithholding,
-    annualFee,
-    monthlyNetSalaryExtra,
-  } = grossToNet({
-    annualGrossSalary,
-    annualPaymentsNumber,
-    childrenNumber,
-    babiesNumber,
-    disabilityPercentage,
+  postData(annualGrossSalary, "madrid", childrenNumber, babiesNumber).then((data) => {
+    console.log(data)
+    	
+	  const monthlyNetSalary = Number(data.MonthlyNet)
+    const annualNetSalary = Number(data.YearlyNet)
+    const annualWithholding = Number(data.TotalWithholdings)
+    const annualFee = 0
+    const monthlyNetSalaryExtra = 0
+  
+    updateResult({
+      monthlyNetSalary,
+      annualNetSalary,
+      annualWithholding,
+      annualFee,
+      monthlyNetSalaryExtra,
+    });
+  }) 
+  
+}
+
+const postData = async (gross_salary: Number, region: string, children: Number, babies: Number) => {
+  var data = { gross_salary: gross_salary, region, children: children, babies: babies}
+  
+  const response = await fetch('http://localhost:8080/netSalary',{
+    method: "POST",
+    
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
   });
 
-  updateResult({
-    monthlyNetSalary,
-    annualNetSalary,
-    annualWithholding,
-    annualFee,
-    monthlyNetSalaryExtra,
-  });
+  const json = await response.json();
+  
+  return json
 }
