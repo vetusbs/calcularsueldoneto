@@ -20,13 +20,13 @@ function updateGrossToNet({ minimal }: { minimal: boolean }) {
     disabilityPercentage,
   } = getFormInputs({ minimal });
 
-  postData(annualGrossSalary, "madrid", childrenNumber, babiesNumber).then((data) => {
+  postData(annualGrossSalary, "extranjero", childrenNumber, babiesNumber).then((data) => {
     console.log(data)
     	
 	  const monthlyNetSalary = Number(data.MonthlyNet)
     const annualNetSalary = Number(data.YearlyNet)
     const annualWithholding = Number(data.TotalWithholdings)
-    const annualFee = 0
+    const annualFee = Number(data.TotalSocialSecurity)
     const monthlyNetSalaryExtra = 0
   
     updateResult({
