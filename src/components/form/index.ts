@@ -68,16 +68,16 @@ export function getFormInputs({ minimal = false }: { minimal: boolean }) {
 
   const childrenNumber = Number($input("[name='children']:checked").value);
   const babiesNumber = Number($input("[name='babies']:checked").value);
-  const disabilityPercentage = Number(
-    $input("[name='disability-percentage']:checked").value
-  );
+  // const disabilityPercentage = Number(
+  //   $input("[name='disability-percentage']:checked").value
+  // );
 
   return {
     annualGrossSalary,
     annualPaymentsNumber,
     childrenNumber,
     babiesNumber,
-    disabilityPercentage,
+    disabilityPercentage:0,
   };
 }
 
